@@ -4,13 +4,12 @@
 //
 //  Created by Dimitar Angelov on 28.09.24.
 //
-
 import SwiftUI
 
 struct ServiceDetailView: View {
     var service: Service
-    @State private var subscription: Subscription?
-
+    @Binding var activeSubscription: Subscription?
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(service.name)
@@ -23,7 +22,14 @@ struct ServiceDetailView: View {
             Text("Цена: \(service.price, specifier: "%.2f") лв.")
                 .font(.headline)
 
-            if let subscription = subscription {
+            Text("Какво включва \(service.planType.rawValue) план:")
+                .font(.headline)
+                .padding(.top)
+
+            planDetails(for: service.planType)
+                .padding(.top)
+
+            if let subscription = activeSubscription, subscription.planType == service.planType {
                 Text("Активен абонамент: \(subscription.planType.rawValue)")
                     .foregroundColor(.green)
             } else {
@@ -46,12 +52,17 @@ struct ServiceDetailView: View {
     }
 
     private func subscribeToService() {
-        subscription = Subscription(planType: service.planType, price: service.price, isActive: true)
+        activeSubscription = Subscription(planType: service.planType, price: service.price, isActive: true)
     }
-}
-
-struct ServiceDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ServiceDetailView(service: Service(name: "Почистване на дома", description: "Основно почистване на помещенията.", price: 100.0, planType: .basic))
+    
+    private func planDetails(for planType: PlanType) -> some View {
+        switch planType {
+        case .basic:
+            return AnyView(Text("Включва: Почистване на помещенията и дребна техническа поддръжка (смяна на крушки, монтиране на контакти)."))
+        case .standard:
+            return AnyView(Text("Включва: Всички услуги от Базовия план + пазаруване и доставки до адрес."))
+        case .premium:
+            return AnyView(Text("Включва: Всички услуги от Средния план + взимане и връщане на дрехи от химическо чистене или пране, поддръжка на градина."))
+        }
     }
 }

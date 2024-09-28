@@ -29,22 +29,9 @@
 		D1AEC5902CA8A159000D59B3 /* HomeServiceAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeServiceAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D1AEC5B02CA8A410000D59B3 /* Exceptions for "HomeServiceApp" folder in "HomeServiceApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Untitled.swift,
-			);
-			target = D1AEC5752CA8A158000D59B3 /* HomeServiceApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D1AEC5782CA8A158000D59B3 /* HomeServiceApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				D1AEC5B02CA8A410000D59B3 /* Exceptions for "HomeServiceApp" folder in "HomeServiceApp" target */,
-			);
 			path = HomeServiceApp;
 			sourceTree = "<group>";
 		};
