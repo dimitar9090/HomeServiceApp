@@ -19,15 +19,14 @@ struct ServiceDetailView: View {
             Text(service.description)
                 .font(.body)
             
+            planDetails(for: service.planType)
+                            .padding(.top)
+            
             Text("Цена: \(service.price, specifier: "%.2f") лв.")
                 .font(.headline)
 
-            Text("Какво включва \(service.planType.rawValue) план:")
-                .font(.headline)
-                .padding(.top)
-
-            planDetails(for: service.planType)
-                .padding(.top)
+            
+            
 
             if let subscription = activeSubscription, subscription.planType == service.planType {
                 Text("Активен абонамент: \(subscription.planType.rawValue)")
@@ -58,11 +57,11 @@ struct ServiceDetailView: View {
     private func planDetails(for planType: PlanType) -> some View {
         switch planType {
         case .basic:
-            return AnyView(Text("Включва: Почистване на помещенията и дребна техническа поддръжка (смяна на крушки, монтиране на контакти)."))
+            return AnyView(Text("Почистване на помещенията и дребна техническа поддръжка (смяна на крушки, монтиране на контакти)."))
         case .standard:
-            return AnyView(Text("Включва: Всички услуги от Базовия план + пазаруване и доставки до адрес."))
+            return AnyView(Text("Всички услуги от Базовия план + пазаруване и доставки до адрес."))
         case .premium:
-            return AnyView(Text("Включва: Всички услуги от Средния план + взимане и връщане на дрехи от химическо чистене или пране, поддръжка на градина."))
+            return AnyView(Text("Всички услуги от Средния план + взимане и връщане на дрехи от химическо чистене или пране, поддръжка на градина."))
         }
     }
 }
