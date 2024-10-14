@@ -9,6 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        SubscriptionListView()
+        TabView {
+            SubscriptionListView()
+                .tabItem {
+                    Label("Абонаменти", systemImage: "list.bullet")
+                }
+            
+            UserProfileIconView()
+                .tabItem {
+                    Label("Профил", systemImage: "person.circle")
+                }
+        }
     }
 }

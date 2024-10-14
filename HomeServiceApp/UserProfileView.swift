@@ -1,57 +1,50 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @State private var phoneNumber: String = ""
-    @State private var email: String = ""
-    @State private var name: String = ""
+    @Environment(\.presentationMode) var presentationMode
+    @State private var phoneNumber: String = UserDefaults.standard.string(forKey: "phoneNumber") ?? ""
+    @State private var email: String = UserDefaults.standard.string(forKey: "email") ?? ""
+    @State private var name: String = UserDefaults.standard.string(forKey: "name") ?? ""
     
-    @State private var userProfileData: UserProfileData = UserProfileData(phoneNumber: nil, email: nil, name: nil)
-  
     var body: some View {
         VStack(spacing: 20) {
             TextField("Телефонен номер", text: $phoneNumber)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .onSubmit {
-                    userProfileData.phoneNumber = phoneNumber.isEmpty ? nil : phoneNumber
-                }
             
-            TextField("E-mail адрес", text: $email)
+            TextField("E-mail", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .onSubmit {
-                    userProfileData.email = email.isEmpty ? nil : email
-                }
             
             TextField("Име", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .onSubmit {
-                    userProfileData.name = name.isEmpty ? nil : name
-                }
             
-            Text("Въведен телефонен номер: \(userProfileData.phoneNumber ?? "Няма въведен номер")")
-                .padding()
-            
-            Text("Въведен имейл: \(userProfileData.email ?? "Няма въведен имейл")")
-                .padding()
-            
-            Text("Въведено име: \(userProfileData.name ?? "Няма въведено име")")
-                .padding()
+            Button(action: {
+                saveUserData()
+                presentationMode.wrappedValue.dismiss() // Връщане към предишния изглед
+            }) {
+                Text("Запамети")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
             
             Spacer()
         }
-        .navigationTitle("Профил на потребителя")
+        .navigationTitle("Редактиране на профила")
         .padding()
     }
+    
+    func saveUserData() {
+        UserDefaults.standard.set(phoneNumber, forKey: "phoneNumber")
+        UserDefaults.standard.set(email, forKey: "email")
+        UserDefaults.standard.set(name, forKey: "name")
+    }
 }
-
-struct UserProfileData {
-    var phoneNumber: String?
-    var email: String?
-    var name: String?
-}
-
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileView()
