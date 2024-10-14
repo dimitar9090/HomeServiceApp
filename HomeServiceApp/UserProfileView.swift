@@ -1,39 +1,42 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @State private var name: String = ""
-    @State private var email: String = ""
     @State private var phoneNumber: String = ""
-    @State private var userProfileData: UserProfileData = UserProfileData(name: nil, email: nil, phoneNumber: nil)
+    @State private var email: String = ""
+    @State private var name: String = ""
     
+    @State private var userProfileData: UserProfileData = UserProfileData(phoneNumber: nil, email: nil, name: nil)
+  
     var body: some View {
         VStack(spacing: 20) {
-            TextField("Име", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .onChange(of: name) { newValue in
-                    userProfileData.name = newValue.isEmpty ? nil : newValue
-                }
-            
-            TextField("Имейл", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .onChange(of: email) { newValue in
-                    userProfileData.email = newValue.isEmpty ? nil : newValue
-                }
-            
             TextField("Телефонен номер", text: $phoneNumber)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .onChange(of: phoneNumber) { newValue in
-                    userProfileData.phoneNumber = newValue.isEmpty ? nil : newValue
+                .onSubmit {
+                    userProfileData.phoneNumber = phoneNumber.isEmpty ? nil : phoneNumber
                 }
             
-            Text("Въведено име: \(userProfileData.name ?? "Няма въведено име")")
+            TextField("E-mail адрес", text: $email)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+                .onSubmit {
+                    userProfileData.email = email.isEmpty ? nil : email
+                }
+            
+            TextField("Име", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .onSubmit {
+                    userProfileData.name = name.isEmpty ? nil : name
+                }
+            
+            Text("Въведен телефонен номер: \(userProfileData.phoneNumber ?? "Няма въведен номер")")
+                .padding()
+            
             Text("Въведен имейл: \(userProfileData.email ?? "Няма въведен имейл")")
                 .padding()
-            Text("Въведен телефонен номер: \(userProfileData.phoneNumber ?? "Няма въведен номер")")
+            
+            Text("Въведено име: \(userProfileData.name ?? "Няма въведено име")")
                 .padding()
             
             Spacer()
@@ -44,9 +47,9 @@ struct UserProfileView: View {
 }
 
 struct UserProfileData {
-    var name: String?
-    var email: String?
     var phoneNumber: String?
+    var email: String?
+    var name: String?
 }
 
 struct UserProfileView_Previews: PreviewProvider {
