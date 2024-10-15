@@ -1,17 +1,17 @@
 //
-//  HomeServiceAppApp.swift
+//  HomeServiceApp.swift
 //  HomeServiceApp
 //
-//  Created by Dimitar Angelov on 28.09.24.
+//  Created by Dimitar Angelov on 15.10.24.
 //
 
 import SwiftUI
 
 @main
-struct HomeServiceAppApp: App {
+struct HomeServiceApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginRegisterView() // Заменяме стартовия екран с екрана за вход или регистрация
         }
     }
 }
